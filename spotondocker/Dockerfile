@@ -17,13 +17,5 @@ RUN echo 'deb [trusted=true] http://www.lrde.epita.fr/repo/debian/ stable/' >> /
 RUN pip3 install pyzmq pydot networkx
 RUN pip3 install --no-cache-dir pygraphviz --install-option="--include-path=/usr/include/graphviz" --install-option="--library-path=/usr/lib/graphviz/"
 
-# Copy code to docker
+# Create folder for mapping code to docker
 RUN mkdir /home/server
-# COPY main.py /home/server
-# COPY README.md /home/server
-
-# # Expose communication port (randomly chosen)
-# EXPOSE 3000    
-
-# Command to run on start
-# CMD ["python3", "/home/server/main.py"]
