@@ -17,6 +17,8 @@ Supported `spot` Functions:
 
 ## Installation Instructions
 
+### Server Setup
+
 1. Install [Docker](https://docs.docker.com/get-docker/). Skip if already installed. 
 
 2. Get the latest version of spotondocker image. 
@@ -25,6 +27,18 @@ Supported `spot` Functions:
     ```
 
 3. Download the latest release of source code from [https://github.com/abhibp1993/spotondocker/releases](https://github.com/abhibp1993/spotondocker/releases) and unzip it. 
+
+
+### Python Client Setup
+
+The following packages are required. 
+- networkx
+- pyzmq
+
+```
+pip3 install pyzmq networkx
+```
+
     
 ## Example (Python Client API)
 
