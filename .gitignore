@@ -1,2 +1,10 @@
 
 spotondocker/__pycache__/
+
+.vscode/
+
+build/
+
+venv/
+
+tests/__pycache__/

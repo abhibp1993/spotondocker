@@ -1,8 +1,8 @@
 # SpotOnDocker
 
-**SpotOnDocker** is a utility which exposes *some* of [spot's](spot.lrde.epita.fr) functions as a service. The functions can be called using client API provided in C++, Python, VB.NET and C#.
+**SpotOnDocker** is a utility which exposes *some* of [spot's](spot.lrde.epita.fr) functions as a dockerized service. The functions can be called using client API provided in C++, Python, VB.NET and C#.
 
-Note: In v0.1, only Python client API is available). 
+Note: In v0.1.0, only Python client API is available. 
 
 
 Supported `spot` Functions:
@@ -26,34 +26,32 @@ Supported `spot` Functions:
     docker pull abhibp1993/spotondocker
     ```
 
-3. Download the latest release of source code from [https://github.com/abhibp1993/spotondocker/releases](https://github.com/abhibp1993/spotondocker/releases) and unzip it. 
-
 
 ### Python Client Setup
 
 The following packages are required. 
 - networkx
-- pyzmq
+- docker
+- thrift (Apache)
 
 ```
-pip3 install pyzmq networkx
+pip3 install docker networkx thrift
+pip3 install spotondocker
 ```
 
     
 ## Example (Python Client API)
 
-Add the path of unzipped `spotondocker` folder to the python file. 
+It is advisable to check if spot is available on system, if not use spotondocker. 
 ```python
-import os
-import sys
-sys.path.append('path.to.spotondocker.folder')
+try:
+    import spot
+except ImportError:
+    import spotondocker.client as client
+    spot = client.SpotOnDockerClient()
 ```
 
-Create a `SpotClient` instance. This will create a docker container and initialize the communication. 
-```
-spot = SpotClient()
-```
-
+`SpotOnDockerClient()` creates a docker container and sets up the server to send requests to
 
 Call the spot functions (only the supported ones!) as usual. For example, to get the class of formula `G(a -> Fb)` in Manna Pnueli hierarchy, we can call
 ```
@@ -67,12 +65,6 @@ In case of translation, the `SpotClient.translate(..)` function returns a `netwo
 nx_graph = spot.translate("(p1 W 0) | Gp2")
 ```
 
-**Note:** The returned digraph contains an extra node, named `I`. This is **not** a node of automaton. It's a dummy node to represent `initial` state. 
+The returned graph has several graph properties. See `spotondocker.thrift` to see a list of properties associated with graph. 
+The node and edge attributes of `nx_graph` contains information like `id` and `label`.
 
-**Note:** The node and edge attributes of `nx_graph` contains information like name, visibility etc. 
-
-
-
-## Tips
-
-1. The ZMQ client wait time for receiveing server response is set using `SpotClient.client_wait_time` variable. For larger LTL formulas, if connection is dropping, try increasing the wait time (default is 2 seconds). 
