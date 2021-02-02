@@ -1,7 +1,7 @@
 FROM debian:buster
 LABEL maintainer="Abhishek N. Kulkarni" \
         email="ankulkarni@wpi.edu" \
-        version="0.2"
+        version="0.3"
 
 # Install python and spot
 # Reference: https://gitlab.lrde.epita.fr/spot/spot-web/-/blob/master/docker/Dockerfile
@@ -14,8 +14,11 @@ RUN echo 'deb [trusted=true] http://www.lrde.epita.fr/repo/debian/ stable/' >> /
     apt-get clean
 
 # Install python packages
-RUN pip3 install pyzmq pydot networkx
-RUN pip3 install --no-cache-dir pygraphviz --install-option="--include-path=/usr/include/graphviz" --install-option="--library-path=/usr/lib/graphviz/"
+RUN pip3 install pyzmq pydot networkx thrift
+#RUN pip3 install --no-cache-dir pygraphviz --install-option="--include-path=/usr/include/graphviz" --install-option="--library-path=/usr/lib/graphviz/"
 
 # Create folder for mapping code to docker
-RUN mkdir /home/server
+RUN mkdir /home/spotondocker
+COPY gen-py/ /home/spotondocker/gen-py/
+COPY ./server.py /home/spotondocker/
+WORKDIR /home/spotondocker/
