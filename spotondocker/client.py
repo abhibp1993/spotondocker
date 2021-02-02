@@ -1,6 +1,9 @@
-import sys
-sys.path.append('gen-py')
-from spotondocker import SpotOnDocker
+import sys, os
+# sys.path.append('gen-py')
+dir_spotondocker = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(dir_spotondocker)
+
+from genpy.spotondocker import SpotOnDocker
 
 import contextlib 
 import docker
@@ -89,28 +92,28 @@ class SpotOnDockerClient:
         # Connect!
         self.transport.open()
 
-    def Ping(self):
+    def ping(self):
         self.client.Ping()
 
-    def MpClass(self, formula):
+    def mp_class(self, formula):
         return self.client.MpClass(formula)
     
-    def Contains(self, formula1, formula2):
+    def contains(self, formula1, formula2):
         return self.client.Contains(formula1, formula2)
 
-    def IsEquivalent(self, formula1, formula2):
+    def equiv(self, formula1, formula2):
         return self.client.IsEquivalent(formula1, formula2)
         
-    def RndLTL(self, numAP, rndSeed):
+    def rand_ltl(self, numAP, rndSeed):
         return self.client.RndLTL(numAP, rndSeed)
 
-    def GetAP(self, formula):
+    def get_ap(self, formula):
         return self.client.GetAP(formula)
         
-    def ToLatexString(self, formula):
+    def to_string_latex(self, formula):
         return self.client.ToLatexString(formula)
 
-    def Translate(self, formula):
+    def translate(self, formula):
         thriftGraph = self.client.Translate(formula)
         aut = nx.MultiDiGraph(
                 acc=thriftGraph.acceptance, 
