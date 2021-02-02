@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="spotondocker", 
-    version="0.1.0",
+    version="0.1.2",
     author="Abhishek N. Kulkarni",
     author_email="abhibp1993@gmail.com",
     description="SpotOnDocker is a utility which exposes some of spot (spot.lrde.epita.fr) functionality as a dockerized service.",

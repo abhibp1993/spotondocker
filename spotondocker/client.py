@@ -56,16 +56,16 @@ import time
 
 
 class SpotOnDockerClient:
-     """
-    Wraps the server-client communication with a Docker container with a proper installation of spot (see: https://spot.lrde.epita.fr/).
-    
-    Functionality:
-        - Creates a new docker container and launches SpotOnDocker server on it.
-        - Manages communication with SpotOnDocker server. 
-        - Exposes "some" of the spot functionality. 
-
     """
-    def __init__(self, container_name=None, port=None, client_wait_time=2000):
+    Wraps the server-client communication with a Docker container with a proper installation of spot (see: https://spot.lrde.epita.fr/).
+
+    Functionality:
+    - Creates a new docker container and launches SpotOnDocker server on it.
+    - Manages communication with SpotOnDocker server. 
+    - Exposes "some" of the spot functionality. 
+    """
+
+    def __init__(self, container_name=None, port=None, client_wait_time=2000):  
         # Internal parameters: docker container 
         self.dclient = docker.from_env() 
         self.port = self._find_free_port() if port is None else port
